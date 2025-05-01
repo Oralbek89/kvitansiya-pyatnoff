@@ -1,423 +1,141 @@
-
 <!DOCTYPE html>
-
 <html lang="ru">
 <head>
-<meta charset="utf-8"/>
-<title>Квитанция химчистки</title>
-<style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Квитанция химчистки «Пятн.OFF»</title>
+  <style>
     body {
       font-family: Arial, sans-serif;
-      max-width: 700px;
-      margin: 40px auto;
+      background: #f8f8f8;
+      margin: 0;
       padding: 20px;
-      background: #fff;
-      border: 1px solid #ccc;
-      border-radius: 8px;
     }
-    h2 {
+    .container {
+      max-width: 700px;
+      margin: auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h1, h2 {
       text-align: center;
     }
-    label {
-      display: block;
-      margin-top: 15px;
-      font-weight: bold;
+    form > div {
+      margin-bottom: 15px;
     }
-    input, select {
+    label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 5px;
+    }
+    input, select, textarea {
       width: 100%;
       padding: 8px;
-      margin-top: 5px;
-      box-sizing: border-box;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
     }
-    .field-block {
-      margin-top: 20px;
+    button {
+      padding: 10px 20px;
+      font-size: 18px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 15px;
+    }
+    .buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .submit-btn {
+      background-color: #4CAF50;
+      color: white;
+    }
+    .reset-btn {
+      background-color: #f44336;
+      color: white;
+    }
+    footer {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 14px;
+      color: #777;
     }
   </style>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/><style>
-    body {
-        font-size: 16px;
-        padding: 10px;
-        font-family: sans-serif;
-    }
-
-    input, select, textarea, button {
-        font-size: 18px !important;
-        padding: 10px !important;
-        width: 100%;
-        box-sizing: border-box;
-        margin-bottom: 12px;
-    }
-
-    label {
-        font-weight: bold;
-        margin-top: 10px;
-        display: block;
-    }
-
-    @media (min-width: 768px) {
-        input, select, textarea, button {
-            max-width: 600px;
-        }
-    }
-
-    canvas {
-        border: 1px solid #ccc;
-        display: block;
-        margin-bottom: 12px;
-    }
-    </style></head>
+</head>
 <body>
+  <div class="container">
+    <h2>Квитанция химчистки «Пятн.OFF»</h2>
+    <form id="receiptForm">
+      <div><label>1. Номер квитанции</label><input name="номер_квитанции" required></div>
+      <div><label>2. Дата приёма</label><input name="дата_приема" type="date" required></div>
+      <div><label>3. ФИО клиента</label><input name="фио_клиента" required></div>
+      <div><label>4. Телефон</label><input name="телефон" type="tel" required></div>
+      <div><label>5. Адрес</label><input name="адрес"></div>
+      <div><label>6. Наименование изделия</label><input name="изделие" required></div>
+      <div><label>7. Цвет</label><input name="цвет"></div>
+      <div><label>8. Бренд</label><input name="бренд"></div>
+      <div><label>9. Размер</label><input name="размер"></div>
+      <div><label>10. Пол</label><select name="пол"><option>Мужской</option><option>Женский</option></select></div>
+      <div><label>11. Дефекты</label><textarea name="дефекты"></textarea></div>
+      <div><label>12. Риски после чистки</label><textarea name="риски"></textarea></div>
+      <div><label>13. Особенности (капюшон, мех, пояс)</label><input name="особенности"></div>
+      <div><label>14. Маркировка</label><select name="маркировка"><option>Есть</option><option>Частичная</option><option>Нет</option></select></div>
+      <div><label>15. Пятна</label><textarea name="пятна"></textarea></div>
+      <div><label>16. Комментарий</label><textarea name="комментарий"></textarea></div>
+      <div><label>17. Экспресс-чистка (доплата)</label><input name="экспресс_чистка" type="number" value="0"></div>
+      <div><label>18. Стоимость чистки</label><input name="стоимость" type="number" required></div>
+      <div><label>19. Аванс</label><input name="аванс" type="number" value="0"></div>
+      <div><label>20. Скидка</label><input name="скидка" type="number" value="0"></div>
+      <div><label>21. Итого к оплате</label><input name="итого" type="number" readonly></div>
 
-<h2 style="text-align: center; margin-top: 20px;">Квитанция химчистки «Пятн.OFF»</h2>
-<form><div class="field-block"><label for="receiptNumber">1. Номер квитанции</label><input id="receiptNumber" name="receiptNumber" required="True" type="text"/></div>
-<!-- Дата приема -->
-<div class="field-block">
-<label for="date">2. Дата приёма</label>
-<input id="date" name="date" required="" type="date"/>
-</div>
-<!-- ФИО клиента -->
-<div class="field-block">
-<label for="clientName">3. ФИО клиента</label>
-<input id="clientName" name="clientName" placeholder="Введите ФИО" required="" type="text"/>
-</div><div class="field-block">
-<label for="phone">4. Телефон</label>
-<input id="phone" name="phone" placeholder="+7 (___) ___-__-__" required="" type="tel"/>
-</div><div class="field-block">
-<label for="address">5. Адрес</label>
-<input id="address" name="address" placeholder="Введите адрес клиента" type="text"/>
-</div>
-<!-- Наименование изделия -->
-<div class="field-block">
-<label for="itemName">6. Наименование изделия</label>
-<select id="itemName" name="itemName" onchange="toggleOther(this, 'itemNameOther')">
-<option disabled="" selected="" value="">Выберите...</option>
-<option>Пальто</option>
-<option>Куртка</option>
-<option>Брюки</option>
-<option>Джинсы</option>
-<option>Пиджак</option>
-<option>Рубашка</option>
-<option>Платок</option>
-<option>Шторы</option>
-<option>Юбка</option>
-<option>Платье</option>
-<option>Костюм</option>
-<option>Комбинезон</option>
-<option>Спецодежда</option>
-<option>Пуховик</option>
-<option value="Другое">Другое</option>
-</select>
-<input id="itemNameOther" name="itemNameOther" placeholder="Укажите другое" style="display:none; margin-top:5px;" type="text"/>
-</div>
-<!-- Цвет изделия -->
-<div class="field-block">
-<label for="itemColor">7. Цвет изделия</label>
-<select id="itemColor" name="itemColor" onchange="toggleOther(this, 'itemColorOther')">
-<option disabled="" selected="" value="">Выберите...</option>
-<option>Чёрный</option>
-<option>Белый</option>
-<option>Синий</option>
-<option>Красный</option>
-<option>Бежевый</option>
-<option>Серый</option>
-<option>Зелёный</option>
-<option>Жёлтый</option>
-<option>Розовый</option>
-<option>Бордовый</option>
-<option>Хаки</option>
-<option>Многоцветный</option>
-<option value="Другое">Другое</option>
-</select>
-<input id="itemColorOther" name="itemColorOther" placeholder="Укажите другое" style="display:none; margin-top:5px;" type="text"/>
-</div>
-<!-- Пятна и загрязнение изделия -->
-<div class="field-block">
-<label for="stains">8. Пятна и загрязнение изделия</label>
-<select id="stains" name="stains" onchange="toggleOther(this, 'stainsOther')">
-<option disabled="" selected="" value="">Выберите...</option>
-<option>Вино</option>
-<option>Кофе</option>
-<option>Трава</option>
-<option>Жир</option>
-<option>Кровь</option>
-<option>Шоколад</option>
-<option>Чернила</option>
-<option>Краска</option>
-<option>Грунт</option>
-<option>Пищевые продукты</option>
-<option>Плесень</option>
-<option>Неизвестного происхождения</option>
-<option>Старое пятно</option>
-<option>Пытались вывести дома</option>
-<option value="Другое">Другое</option>
-</select>
-<input id="stainsOther" name="stainsOther" placeholder="Укажите другое" style="display:none; margin-top:5px;" type="text"/>
-</div>
-<!-- Возможные последствия после чистки -->
-<div class="field-block">
-<label for="risks">9. Возможные последствия после чистки</label>
-<select id="risks" name="risks" onchange="toggleOther(this, 'risksOther')">
-<option disabled="" selected="" value="">Выберите...</option>
-<option>Усадка</option>
-<option>Осветление цвета</option>
-<option>Деформация</option>
-<option>Повреждение фурнитуры</option>
-<option>Усиление износа</option>
-<option>Риск порчи пятна</option>
-<option>Без последствий</option>
-<option value="Другое">Другое</option>
-</select>
-<input id="risksOther" name="risksOther" placeholder="Укажите другое" style="display:none; margin-top:5px;" type="text"/>
-</div>
-<!-- Телефон -->
-<!-- Адрес -->
-<!-- Стоимость чистки -->
-<!-- Скидка -->
-<!-- Итоговая сумма с учетом скидки -->
-<!-- Оплата -->
-<!-- Степень износа изделия -->
-<div class="field-block">
-<label for="wearLevel">10. Степень износа изделия</label>
-<select id="wearLevel" name="wearLevel">
-<option>Новая</option>
-<option>Слегка ношена</option>
-<option>Средний износ</option>
-<option>Сильный износ</option>
-</select>
-</div>
-<!-- Модель: мужская или женская -->
-<div class="field-block">
-<label for="gender">11. Модель</label>
-<select id="gender" name="gender">
-<option>Мужская</option>
-<option>Женская</option>
-<option>Унисекс</option>
-</select>
-</div>
-<!-- Название бренда -->
-<div class="field-block">
-<label for="brand">12. Название бренда</label>
-<input id="brand" name="brand" type="text"/>
-</div>
-<!-- Маркировка -->
-<div class="field-block">
-<label for="labeling">13. Наличие или отсутствие маркировки</label>
-<select id="labeling" name="labeling">
-<option>Полная маркировка</option>
-<option>Отсутствует</option>
-<option>Частичная</option>
-<option>Некорректная</option>
-<option>Все виды чистки запрещены</option>
-<option>Аквачистка</option>
-<option>Химчистка</option>
-<option>Паровая обработка</option>
-</select>
-</div>
-<!-- Прочие детали изделия -->
-<div class="field-block">
-<label for="details">14. Прочие детали изделия</label>
-<input id="details" name="details" type="text"/>
-</div>
-<!-- Дефекты изделия -->
-<div class="field-block">
-<label for="defects">15. Наличие дефектов изделия</label>
-<input id="defects" name="defects" type="text"/>
-</div>
-<!-- Общее количество единиц -->
-<div class="field-block">
-<label for="quantity">16. Общее количество единиц</label>
-<input id="quantity" min="1" name="quantity" type="number"/>
-</div>
-<!-- Подпись заказчика и исполнителя -->
-<!-- Подпись клиента о получении заказа -->
-<!-- Дата выдачи -->
-<div class="field-block">
-<label for="issueDate">17. Дата выдачи</label>
-<input id="issueDate" name="issueDate" type="date"/>
-</div>
-<!-- Доставка -->
-<div class="field-block">
-<label for="delivery">18. Доставка</label>
-<select id="delivery" name="delivery">
-<option>Без доставки</option>
-<option>Туда и обратно</option>
-<option>Только забор</option>
-<option>Только доставка</option>
-</select>
-</div>
-<button onclick="submitForm()" style="margin-top: 20px; padding: 10px 15px;" type="button">Сохранить и отправить</button>
-<button style="margin-top: 10px; padding: 10px 15px;" type="reset">Сброс / Очистка формы</button>
-<div class="field-block">
-<label>19. Подпись клиента ✍️</label>
-<canvas height="100" id="clientSign" style="border:1px solid #ccc;" width="300"></canvas>
-<button onclick="clearCanvas('clientSign')" type="button">Очистить</button>
-</div>
-<div class="field-block">
-<div class="field-block">
-<label>20. ФИО исполнителя</label>
-<input id="staffName" name="staffName" placeholder="Введите ФИО исполнителя" type="text"/>
-</div>
-<label>21. Подпись исполнителя ✍️</label>
-<canvas height="100" id="staffSign" style="border:1px solid #ccc;" width="300"></canvas>
-<button onclick="clearCanvas('staffSign')" type="button">Очистить</button>
-</div>
-<div class="field-block"><label for="price">22. Стоимость чистки (тг)</label><input id="price" min="0" name="price" step="0.01" type="number"/></div><div class="field-block"><label for="advance">23. Аванс (тг)</label><input id="advance" min="0" name="advance" step="0.01" type="number"/></div><div class="field-block"><label for="discount">24. Скидка (%)</label><input id="discount" max="100" min="0" name="discount" placeholder="Введите скидку, например 10" step="1" type="number"/></div><div class="field-block"><label for="express">25. Экспресс-чистка (доплата, тг)</label><input id="express" min="0" name="express" step="1" type="number"/></div><div class="field-block"><label for="comment">26. Комментарий</label><textarea id="comment" name="comment" placeholder="Введите дополнительные пожелания или комментарии" rows="3"></textarea></div><div class="field-block"><label for="finalAmount">27. Итоговая сумма к оплате</label><input id="finalAmount" name="finalAmount" readonly="True" type="text"/></div></form>
-<script>
-  window.onload = function () {
+      <div class="buttons">
+        <button type="submit" class="submit-btn">Сохранить и отправить</button>
+        <button type="reset" class="reset-btn">Сброс</button>
+      </div>
+    </form>
+
+    <footer>
+      © Химчистка «Пятн.OFF». Все права защищены.
+    </footer>
+  </div>
+
+  <script>
+    const form = document.getElementById('receiptForm');
+
     function calculateTotal() {
-      const priceEl = document.getElementById('price');
-      const discountEl = document.getElementById('discount');
-      const finalAmountEl = document.getElementById('finalAmount');
-
-      if (!priceEl || !discountEl || !finalAmountEl) return;
-
-      const price = parseFloat(priceEl.value) || 0;
-      let discountRaw = discountEl.value.replace('%', '').trim();
-      const discount = parseFloat(discountRaw) || 0;
-
-      const discountedAmount = price * (discount / 100);
-      const finalAmount = price - discountedAmount;
-
-      finalAmountEl.value = finalAmount.toFixed(2) + " тг";
+      const cost = parseFloat(form.стоимость.value) || 0;
+      const discount = parseFloat(form.скидка.value) || 0;
+      const advance = parseFloat(form.аванс.value) || 0;
+      const express = parseFloat(form.экспресс_чистка.value) || 0;
+      const total = cost + express - discount - advance;
+      form.итого.value = total > 0 ? total.toFixed(0) : 0;
     }
 
-    const priceInput = document.getElementById('price');
-    const discountInput = document.getElementById('discount');
-
-    if (priceInput) priceInput.addEventListener('input', calculateTotal);
-    if (discountInput) discountInput.addEventListener('input', calculateTotal);
-  }
-</script>
-<script>
-  window.onload = function () {
-    function calculateTotal() {
-      const priceEl = document.getElementById('price');
-      const discountEl = document.getElementById('discount');
-      const finalAmountEl = document.getElementById('finalAmount');
-
-      if (!priceEl || !discountEl || !finalAmountEl) return;
-
-      const price = parseFloat(priceEl.value) || 0;
-      let discountRaw = discountEl.value.replace('%', '').trim();
-      const discount = parseFloat(discountRaw) || 0;
-
-      const discountedAmount = price * (discount / 100);
-      const finalAmount = price - discountedAmount;
-
-      finalAmountEl.value = finalAmount.toFixed(2) + " тг";
-    }
-
-    const priceInput = document.getElementById('price');
-    const discountInput = document.getElementById('discount');
-
-    if (priceInput) priceInput.addEventListener('input', calculateTotal);
-    if (discountInput) discountInput.addEventListener('input', calculateTotal);
-  }
-</script>
-<script>
-  function submitForm() {
-    const form = document.querySelector("form");
-    const formData = new FormData(form);
-    const data = {};
-
-    formData.forEach((value, key) => {
-      data[key] = value;
+    ['стоимость', 'скидка', 'аванс', 'экспресс_чистка'].forEach(id => {
+      form[id].addEventListener('input', calculateTotal);
     });
 
-    // Добавим HTML формы и telegram_id
-    data["htmlContent"] = form.outerHTML;
-    data["telegram_id"] = "@cleanbot_astana_bot";
-
-    fetch("https://oralbek.app.n8n.cloud/webhook-test/e6dbc64b-45c3-4cd4-8583-f8372899c6b2", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(data)
-    })
-    .then(response => {
-      if (response.ok) {
-        alert("Данные успешно отправлены в n8n!");
-      } else {
-        alert("Ошибка при отправке данных.");
-      }
-    })
-    .catch(error => {
-      console.error("Ошибка:", error);
-      alert("Ошибка соединения.");
-    });
-  }
-</script>
-<script>
-  function enableSignature(canvasId) {
-    const canvas = document.getElementById(canvasId);
-    const ctx = canvas.getContext("2d");
-    let drawing = false;
-
-    canvas.addEventListener("mousedown", (e) => {
-      drawing = true;
-      ctx.beginPath();
-      ctx.moveTo(e.offsetX, e.offsetY);
-    });
-
-    canvas.addEventListener("mousemove", (e) => {
-      if (drawing) {
-        ctx.lineTo(e.offsetX, e.offsetY);
-        ctx.stroke();
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(form));
+      try {
+        const response = await fetch("https://oralbek.app.n8n.cloud/webhook-test/webhook-test/e6dbc64b-45c3-4cd4-8583-f8372899c6b2", {
+          method: "POST",
+          headers: {"Content-Type": "application/json"},
+          body: JSON.stringify(data),
+        });
+        alert("Данные отправлены!");
+        form.reset();
+        form.итого.value = '';
+      } catch (err) {
+        alert("Ошибка отправки!");
+        console.error(err);
       }
     });
-
-    canvas.addEventListener("mouseup", () => {
-      drawing = false;
-    });
-
-    canvas.addEventListener("mouseleave", () => {
-      drawing = false;
-    });
-  }
-
-  function clearCanvas(canvasId) {
-    const canvas = document.getElementById(canvasId);
-    const ctx = canvas.getContext("2d");
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-  }
-
-  window.onload = function () {
-    enableSignature("clientSign");
-    enableSignature("staffSign");
-
-    const priceEl = document.getElementById('price');
-    const discountEl = document.getElementById('discount');
-    const finalAmountEl = document.getElementById('finalAmount');
-
-    function calculateTotal() {
-      const price = parseFloat(priceEl.value) || 0;
-      let discountRaw = discountEl.value.replace('%', '').trim();
-      const discount = parseFloat(discountRaw) || 0;
-      const discountedAmount = price * (discount / 100);
-      const finalAmount = price - discountedAmount;
-      finalAmountEl.value = finalAmount.toFixed(2) + " тг";
-    }
-
-    if (priceEl) priceEl.addEventListener('input', calculateTotal);
-    if (discountEl) discountEl.addEventListener('input', calculateTotal);
-  }
-</script>
-<script>
-function calculateTotal() {
-  const price = parseFloat(document.getElementById('price').value) || 0;
-  const discount = parseFloat(document.getElementById('discount').value) || 0;
-  const express = parseFloat(document.getElementById('express').value) || 0;
-  const advance = parseFloat(document.getElementById('advance').value) || 0;
-
-  let discounted = price * (1 - discount / 100);
-  let total = discounted + express - advance;
-  document.getElementById('finalAmount').value = total.toFixed(2);
-}
-
-['price', 'discount', 'advance', 'express'].forEach(id => {
-  const el = document.getElementById(id);
-  if (el) el.addEventListener('input', calculateTotal);
-});
-</script><footer style="text-align:center; margin-top:30px; font-size:14px; color:#888;">© Химчистка «Пятн.OFF». Все права защищены.</footer></body>
+  </script>
+</body>
 </html>
