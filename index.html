@@ -16,39 +16,31 @@
       margin: auto;
       background: #fff;
       padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      border-radius: 10px;
     }
-    h1, h2 {
+    h1 {
       text-align: center;
-    }
-    form > div {
-      margin-bottom: 15px;
+      margin-bottom: 30px;
     }
     label {
-      font-weight: bold;
       display: block;
-      margin-bottom: 5px;
+      margin-top: 15px;
+      font-weight: bold;
     }
     input, select, textarea {
       width: 100%;
       padding: 8px;
+      margin-top: 5px;
       font-size: 16px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
     }
     button {
-      padding: 10px 20px;
-      font-size: 18px;
-      border: none;
-      border-radius: 6px;
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      margin-top: 20px;
       cursor: pointer;
-      margin-top: 15px;
-    }
-    .buttons {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
+      border: none;
+      border-radius: 5px;
     }
     .submit-btn {
       background-color: #4CAF50;
@@ -58,91 +50,134 @@
       background-color: #f44336;
       color: white;
     }
-    footer {
+    .footer {
       text-align: center;
       margin-top: 30px;
       font-size: 14px;
-      color: #777;
+      color: #666;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h2>Квитанция химчистки «Пятн.OFF»</h2>
+    <h1>Квитанция химчистки «Пятн.OFF»</h1>
     <form id="receiptForm">
-      <div><label>1. Номер квитанции</label><input name="Номер квитанции" required></div>
-      <div><label>2. Дата приёма</label><input name="Дата приёма" type="date" required></div>
-      <div><label>3. ФИО клиента</label><input name="ФИО клиента" required></div>
-      <div><label>4. Телефон</label><input name="Телефон" type="tel" required></div>
-      <div><label>5. Адрес</label><input name="Адрес"></div>
-      <div><label>6. Наименование изделия</label><input name="Наименование изделия" required></div>
-      <div><label>7. Цвет изделия</label><input name="Цвет изделия"></div>
-      <div><label>8. Пятна и загрязнение</label><textarea name="Пятна и загрязнение"></textarea></div>
-      <div><label>9. Возможные последствия</label><textarea name="Возможные последствия"></textarea></div>
-      <div><label>10. Степень износа</label><input name="Степень износа"></div>
-      <div><label>11. Модель</label><input name="Модель"></div>
-      <div><label>12. Бренд</label><input name="Бренд"></div>
-      <div><label>13. Маркировка</label><input name="Маркировка"></div>
-      <div><label>14. Прочие детали изделия</label><textarea name="Прочие детали изделия"></textarea></div>
-      <div><label>15. Дефекты</label><textarea name="Дефекты"></textarea></div>
-      <div><label>16. Кол-во единиц</label><input name="Кол-во единиц" type="number" value="1"></div>
-      <div><label>17. Дата выдачи</label><input name="Дата выдачи" type="date"></div>
-      <div><label>18. Доставка</label><input name="Доставка"></div>
-      <div><label>19. Подпись клиента</label><input name="Подпись клиента"></div>
-      <div><label>20. ФИО исполнителя</label><input name="ФИО исполнителя"></div>
-      <div><label>21. Подпись исполнителя</label><input name="Подпись исполнителя"></div>
-      <div><label>22. Стоимость чистки</label><input name="Стоимость чистки" type="number"></div>
-      <div><label>23. Аванс</label><input name="Аванс" type="number" value="0"></div>
-      <div><label>24. Скидка</label><input name="Скидка" type="number" value="0"></div>
-      <div><label>25. Экспресс</label><input name="Экспресс" type="number" value="0"></div>
-      <div><label>26. Комментарий</label><textarea name="Комментарий"></textarea></div>
-      <div><label>27. Итоговая сумма к оплате</label><input name="Итоговая сумма к оплате" type="number" readonly></div>
+      <label>1. Номер квитанции</label>
+      <input type="text" name="receiptNumber" required />
 
-      <div class="buttons">
-        <button type="submit" class="submit-btn">Сохранить и отправить</button>
-        <button type="reset" class="reset-btn">Сброс</button>
-      </div>
+      <label>2. Дата приёма</label>
+      <input type="date" name="date" value="2025-05-01" required />
+
+      <label>3. ФИО клиента</label>
+      <input type="text" name="clientName" required />
+
+      <label>4. Телефон</label>
+      <input type="tel" name="phone" required />
+
+      <label>5. Адрес</label>
+      <input type="text" name="address" />
+
+      <label>6. Наименование изделия</label>
+      <input type="text" name="itemName" />
+
+      <label>7. Цвет</label>
+      <input type="text" name="color" />
+
+      <label>8. Бренд</label>
+      <input type="text" name="brand" />
+
+      <label>9. Размер</label>
+      <input type="text" name="size" />
+
+      <label>10. Пол</label>
+      <select name="gender">
+        <option value="Мужской">Мужской</option>
+        <option value="Женский">Женский</option>
+      </select>
+
+      <label>11. Дефекты</label>
+      <textarea name="defects"></textarea>
+
+      <label>12. Риски после чистки</label>
+      <textarea name="risks"></textarea>
+
+      <label>13. Особенности (капюшон, мех, пояс)</label>
+      <textarea name="features"></textarea>
+
+      <label>14. Маркировка</label>
+      <select name="label">
+        <option value="Есть">Есть</option>
+        <option value="Нет">Нет</option>
+        <option value="Частично">Частично</option>
+      </select>
+
+      <label>15. Пятна</label>
+      <textarea name="stains"></textarea>
+
+      <label>16. Комментарий</label>
+      <textarea name="comment"></textarea>
+
+      <label>17. Экспресс-чистка (доплата)</label>
+      <input type="number" name="express" value="0" />
+
+      <label>18. Стоимость чистки</label>
+      <input type="number" name="cost" id="cost" value="0" />
+
+      <label>19. Аванс</label>
+      <input type="number" name="advance" id="advance" value="0" />
+
+      <label>20. Скидка</label>
+      <input type="number" name="discount" id="discount" value="0" />
+
+      <label>21. Итого к оплате</label>
+      <input type="number" name="total" id="total" readonly />
+
+      <button type="submit" class="submit-btn">Сохранить и отправить</button>
+      <button type="reset" class="reset-btn">Сброс</button>
     </form>
 
-    <footer>
-      © Химчистка «Пятн.OFF». Все права защищены.
-    </footer>
+    <div class="footer">© Химчистка «Пятн.OFF». Все права защищены.</div>
   </div>
 
   <script>
     const form = document.getElementById('receiptForm');
+    const costInput = document.getElementById('cost');
+    const advanceInput = document.getElementById('advance');
+    const discountInput = document.getElementById('discount');
+    const totalInput = document.getElementById('total');
 
     function calculateTotal() {
-      const cost = parseFloat(form["Стоимость чистки"].value) || 0;
-      const discount = parseFloat(form["Скидка"].value) || 0;
-      const advance = parseFloat(form["Аванс"].value) || 0;
-      const express = parseFloat(form["Экспресс"].value) || 0;
+      const cost = parseFloat(costInput.value) || 0;
+      const advance = parseFloat(advanceInput.value) || 0;
+      const discount = parseFloat(discountInput.value) || 0;
+      const express = parseFloat(form.elements["express"].value) || 0;
+
       const total = cost + express - discount - advance;
-      form["Итоговая сумма к оплате"].value = total > 0 ? total.toFixed(0) : 0;
+      totalInput.value = total > 0 ? total : 0;
     }
 
-    ["Стоимость чистки", "Скидка", "Аванс", "Экспресс"].forEach(field => {
-      form[field].addEventListener("input", calculateTotal);
-    });
+    form.addEventListener('input', calculateTotal);
 
-    form.addEventListener("submit", async (e) => {
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      const data = Object.fromEntries(new FormData(form));
+
+      const formData = new FormData(form);
+      const data = {};
+      formData.forEach((value, key) => { data[key] = value });
+
       try {
-        const res = await fetch("https://oralbek.app.n8n.cloud/webhook-test/webhook-test/e6dbc64b-45c3-4cd4-8583-f8372899c6b2", {
+        await fetch("https://oralbek.app.n8n.cloud/webhook-test/e6dbc64b-45c3-4cd4-8583-f8372899c6b2", {
           method: "POST",
-          headers: {"Content-Type": "application/json"},
-          body: JSON.stringify(data),
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data)
         });
-        alert("✅ Данные отправлены!");
+        alert("Данные успешно отправлены!");
         form.reset();
-        form["Итоговая сумма к оплате"].value = "";
-      } catch (err) {
-        alert("❌ Ошибка отправки!");
-        console.error(err);
+        totalInput.value = '';
+      } catch (error) {
+        alert("Ошибка при отправке данных");
       }
     });
   </script>
 </body>
 </html>
-
