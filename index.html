@@ -326,7 +326,14 @@
     // Добавим HTML формы и telegram_id
     data["htmlContent"] = form.outerHTML;
     data["telegram_id"] = "@cleanbot_astana_bot";
+// Добавим подписи в base64
+const clientSignCanvas = document.getElementById('clientSign');
+const staffSignCanvas = document.getElementById('staffSign');
 
+if (clientSignCanvas && staffSignCanvas) {
+  data["clientSignature"] = clientSignCanvas.toDataURL("image/png");
+  data["staffSignature"] = staffSignCanvas.toDataURL("image/png");
+}
     fetch("https://oralbek.app.n8n.cloud/webhook-test/fdbc0125-89ca-4117-8188-7e677e1d972b", {
       method: "POST",
       headers: {
