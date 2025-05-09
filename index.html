@@ -241,16 +241,19 @@ function appendPercent(el) {
 </div>
 <div class="field-block">
   <label for="defects">Наличие дефектов изделия</label>
-  <select id="defects" name="defects" multiple>
-    <option>Порывы</option>
-    <option>Ожоги</option>
-    <option>Царапины</option>
-    <option>Затяжки</option>
-    <option>Протертости ткани</option>
-    <option>Осветления</option>
-    <option>Скатанная ткань</option>
-    <option>Линяние после домашней стирки</option>
-  </select>
+  <select id="defects" name="defects">
+  <option disabled selected value="">Выберите...</option>
+  <option>Порывы</option>
+  <option>Ожоги</option>
+  <option>Царапины</option>
+  <option>Затяжки</option>
+  <option>Протертости ткани</option>
+  <option>Осветления</option>
+  <option>Скатанная ткань</option>
+  <option>Линяние после домашней стирки</option>
+  <option value="Другое">Другое</option>
+</select>
+<input id="defectsOther" name="defectsOther" placeholder="Укажите другое" style="display:none; margin-top:5px;" type="text" />
 </div>
 <!-- Общее количество единиц -->
 <div class="field-block">
