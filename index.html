@@ -182,9 +182,13 @@
 </div>
 <script>
 function appendPercent(el) {
-  if (el.value !== '' && !el.value.includes('%')) {
-    el.value = el.value.replace('%', '') + '%';
+  const raw = el.value.replace(/[^0-9]/g, '');
+  if (raw !== '') {
+    el.value = raw + '%';
+  } else {
+    el.value = '';
   }
+}
 }
 </script>
 </select>
