@@ -225,18 +225,19 @@ function appendPercent(el) {
 </div>
 <!-- Прочие детали изделия -->
 <div class="field-block">
-<label for="details">14. Прочие детали изделия</label>
-<div class="field-block">
   <label for="details">Прочие детали изделия</label>
-  <select id="details" name="details" multiple>
-    <option>Пояс</option>
-    <option>Капюшон</option>
-    <option>Мех искусственный (съёмный)</option>
-    <option>Мех искусственный (не съёмный)</option>
-    <option>Мех натуральный (съёмный)</option>
-    <option>Мех натуральный (не съёмный)</option>
-    <option>Утеплённый подклад (съёмный)</option>
-  </select>
+  <select id="details" name="details">
+  <option disabled selected value="">Выберите...</option>
+  <option>Пояс</option>
+  <option>Капюшон</option>
+  <option>Мех искусственный (съёмный)</option>
+  <option>Мех искусственный (не съёмный)</option>
+  <option>Мех натуральный (съёмный)</option>
+  <option>Мех натуральный (не съёмный)</option>
+  <option>Утеплённый подклад (съёмный)</option>
+  <option value="Другое">Другое</option>
+</select>
+<input id="detailsOther" name="detailsOther" placeholder="Укажите другое" style="display:none; margin-top:5px;" type="text" />
 </div>
 <div class="field-block">
   <label for="defects">Наличие дефектов изделия</label>
