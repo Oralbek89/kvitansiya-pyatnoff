@@ -463,7 +463,7 @@ async function generateAndSendPDF() {
   payload.append("json", JSON.stringify(data));
 
   // Отправка в n8n
-  await fetch("https://your-n8n-webhook-url", {
+  await fetch("https://oralbek.app.n8n.cloud/webhook-test/fdbc0125-89ca-4117-8188-7e677e1d972b", {
     method: "POST",
     body: payload
   });
