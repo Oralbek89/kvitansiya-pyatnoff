@@ -241,7 +241,7 @@ function appendPercent(el) {
 </div>
 <div class="field-block">
   <label for="defects">Наличие дефектов изделия</label>
-  <select id="defects" name="defects">
+  <select id="defects" name="defects" onchange="toggleOther(this, 'defectsOther')">
   <option disabled selected value="">Выберите...</option>
   <option>Порывы</option>
   <option>Ожоги</option>
