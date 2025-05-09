@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 
 <html lang="ru">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <head>
 <meta charset="utf-8"/>
 <title>Квитанция химчистки</title>
@@ -261,7 +262,8 @@
 <button onclick="clearCanvas('staffSign')" type="button">Очистить</button>
 </div>
 <div class="field-block"><label for="price">22. Стоимость чистки (тг)</label><input id="price" min="0" name="price" step="0.01" type="number"/></div><div class="field-block"><label for="advance">23. Аванс (тг)</label><input id="advance" min="0" name="advance" step="0.01" type="number"/></div><div class="field-block"><label for="discount">24. Скидка (%)</label><input id="discount" max="100" min="0" name="discount" placeholder="Введите скидку, например 10" step="1" type="number"/></div><div class="field-block"><label for="express">25. Экспресс-чистка (доплата, тг)</label><input id="express" min="0" name="express" step="1" type="number"/></div><div class="field-block"><label for="comment">26. Комментарий</label><textarea id="comment" name="comment" placeholder="Введите дополнительные пожелания или комментарии" rows="3"></textarea></div><div class="field-block"><label for="finalAmount">27. Итоговая сумма к оплате</label><input id="finalAmount" name="finalAmount" readonly="True" type="text"/></div></form>
-<script>
+<button onclick="generateAndSendPDF()" type="button" style="margin-top: 10px; padding: 10px 15px;">Скачать PDF и отправить</button>
+ <script>
   window.onload = function () {
     function calculateTotal() {
       const priceEl = document.getElementById('price');
@@ -425,5 +427,49 @@ function calculateTotal() {
   const el = document.getElementById(id);
   if (el) el.addEventListener('input', calculateTotal);
 });
-</script><footer style="text-align:center; margin-top:30px; font-size:14px; color:#888;">© Химчистка «Пятн.OFF». Все права защищены.</footer></body>
+</script><footer style="text-align:center; margin-top:30px; font-size:14px; color:#888;">© Химчистка «Пятн.OFF». Все права защищены.</footer>
+<script>
+async function generateAndSendPDF() {
+  const element = document.body;
+
+  const opt = {
+    margin:       0.5,
+    filename:     'Квитанция.pdf',
+    image:        { type: 'jpeg', quality: 0.98 },
+    html2canvas:  { scale: 2 },
+    jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
+  };
+
+  // Генерируем PDF
+  const pdfBlob = await html2pdf().set(opt).from(element).outputPdf('blob');
+
+  // Собираем данные из формы
+  const form = document.querySelector("form");
+  const formData = new FormData(form);
+  const data = {};
+  formData.forEach((value, key) => data[key] = value);
+
+  // Добавим подписи
+  const clientSignCanvas = document.getElementById('clientSign');
+  const staffSignCanvas = document.getElementById('staffSign');
+  if (clientSignCanvas && staffSignCanvas) {
+    data["clientSignature"] = clientSignCanvas.toDataURL("image/png");
+    data["staffSignature"] = staffSignCanvas.toDataURL("image/png");
+  }
+
+  // Готовим payload
+  const payload = new FormData();
+  payload.append("pdf", pdfBlob, "Квитанция.pdf");
+  payload.append("json", JSON.stringify(data));
+
+  // Отправка в n8n
+  await fetch("https://your-n8n-webhook-url", {
+    method: "POST",
+    body: payload
+  });
+
+  alert("PDF и данные отправлены!");
+}
+</script>
+</body>
 </html>
