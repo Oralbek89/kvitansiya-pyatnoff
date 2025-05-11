@@ -275,10 +275,11 @@ function appendPercent(el) {
 <option>Только доставка</option>
 </select>
 </div>
+<div class="field-block"><label for="price">22. Стоимость чистки (тг)</label><input id="price" min="0" name="price" step="0.01" type="number"/></div><div class="field-block"><label for="advance">23. Аванс (тг)</label><input id="advance" min="0" name="advance" step="0.01" type="number"/></div><div class="field-block"><label for="discount">24. Скидка (%)</label><input id="discount" max="100" min="0" name="discount" placeholder="Введите скидку, например 10" step="1" type="number"/></div><div class="field-block"><label for="express">25. Экспресс-чистка (доплата, тг)</label><input id="express" min="0" name="express" step="1" type="number"/></div><div class="field-block"><label for="comment">26. Комментарий</label><textarea id="comment" name="comment" placeholder="Введите дополнительные пожелания или комментарии" rows="3"></textarea></div><div class="field-block"><label for="finalAmount">27. Итоговая сумма к оплате</label><input id="finalAmount" name="finalAmount" readonly="True" type="text"/></div></form>
 <!-- Особые условия -->
 <div class="field-block">
-  <label for="specialConditions"><strong>Особые условия</strong></label>
-  <textarea id="specialConditions" name="specialConditions" rows="10" readonly>
+<label for="specialConditions"><strong>Особые условия</strong></label>
+<textarea id="specialConditions" name="specialConditions" rows="10" readonly>
 1. Вещи без маркировки, при частичной маркировке или запрещающей химическую чистку, могут быть приняты, только по требованию Заказчика. При этом, Исполнитель, не несёт материальной и моральной ответственности за качество чистки, порчи и потери товарного вида изделия, обработанного в соответствии с существующими технологиями.
 2. В ходе оказания услуг возможно проявление (ввиду недоброкачественного материала и др.) скрытых дефектов (усадка, деформация, проступление клея, изменение оттенка краски или её сход, увеличение жёсткости кожи, уменьшение блеска плёночного покрытия или его сход и др.).
 3. Пятна крови, чернил, слюны животных, застарелые, белкового или неизвестного происхождения, а также любые пятна после попытки самостоятельного удаления — без гарантии.
@@ -312,7 +313,6 @@ function appendPercent(el) {
   <button onclick="generateAndSendPDF()" type="button">Скачать PDF и отправить</button>
   <button type="reset">Сброс / Очистка формы</button>
 </div>
-<div class="field-block"><label for="price">22. Стоимость чистки (тг)</label><input id="price" min="0" name="price" step="0.01" type="number"/></div><div class="field-block"><label for="advance">23. Аванс (тг)</label><input id="advance" min="0" name="advance" step="0.01" type="number"/></div><div class="field-block"><label for="discount">24. Скидка (%)</label><input id="discount" max="100" min="0" name="discount" placeholder="Введите скидку, например 10" step="1" type="number"/></div><div class="field-block"><label for="express">25. Экспресс-чистка (доплата, тг)</label><input id="express" min="0" name="express" step="1" type="number"/></div><div class="field-block"><label for="comment">26. Комментарий</label><textarea id="comment" name="comment" placeholder="Введите дополнительные пожелания или комментарии" rows="3"></textarea></div><div class="field-block"><label for="finalAmount">27. Итоговая сумма к оплате</label><input id="finalAmount" name="finalAmount" readonly="True" type="text"/></div></form>
  <script>
   window.onload = function () {
     function calculateTotal() {
