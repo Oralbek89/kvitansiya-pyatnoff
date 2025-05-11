@@ -76,8 +76,13 @@
 <label for="clientName">3. ФИО заказчика</label>
 <input id="clientName" name="clientName" placeholder="Введите ФИО" required="" type="text"/>
 </div><div class="field-block">
-<label for="phone">4. Телефон</label>
-<input id="phone" name="phone" placeholder="+7 (___) ___-__-__" required="" type="tel"/>
+<label for="phone">Телефон клиента:</label>
+<input type="tel" id="phone" name="phone" value="+7" 
+       pattern="\+7[0-9]{10}" 
+       oninput="if(!this.value.startsWith('+7')) this.value = '+7';" 
+       maxlength="12"
+       required />
+<small>Формат: +7XXXXXXXXXX (10 цифр после +7)</small>
 </div><div class="field-block">
 <label for="address">5. Адрес</label>
 <input id="address" name="address" placeholder="Введите адрес клиента" type="text"/>
