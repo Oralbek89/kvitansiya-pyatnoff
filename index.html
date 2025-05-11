@@ -76,7 +76,7 @@
 <label for="clientName">3. ФИО заказчика</label>
 <input id="clientName" name="clientName" placeholder="Введите ФИО" required="" type="text"/>
 </div><div class="field-block">
-<label for="phone">Телефон клиента:</label>
+<label for="phone">4. Телефон заказчика:</label>
 <input type="tel" id="phone" name="phone" value="+7" 
        pattern="\+7[0-9]{10}" 
        oninput="if(!this.value.startsWith('+7')) this.value = '+7';" 
@@ -224,7 +224,7 @@ function appendPercent(el) {
 </div>
 <!-- Прочие детали изделия -->
 <div class="field-block">
-  <label for="details">Прочие детали изделия</label>
+  <label for="details">14. Прочие детали изделия</label>
   <select id="details" name="details">
   <option disabled selected value="">Выберите...</option>
   <option>Пояс</option>
@@ -239,7 +239,7 @@ function appendPercent(el) {
 <input id="detailsOther" name="detailsOther" placeholder="Укажите другое" style="display:none; margin-top:5px;" type="text" />
 </div>
 <div class="field-block">
-  <label for="defects">Наличие дефектов изделия</label>
+  <label for="defects">15. Наличие дефектов изделия</label>
   <select id="defects" name="defects" onchange="toggleOther(this, 'defectsOther')">
   <option disabled selected value="">Выберите...</option>
   <option>Порывы</option>
@@ -276,10 +276,10 @@ function appendPercent(el) {
 <option>Только доставка</option>
 </select>
 </div>
-<div class="field-block"><label for="price">22. Стоимость чистки (тг)</label><input id="price" min="0" name="price" step="0.01" type="number"/></div><div class="field-block"><label for="advance">23. Аванс (тг)</label><input id="advance" min="0" name="advance" step="0.01" type="number"/></div><div class="field-block"><label for="discount">24. Скидка (%)</label><input id="discount" max="100" min="0" name="discount" placeholder="Введите скидку, например 10" step="1" type="number"/></div><div class="field-block"><label for="express">25. Экспресс-чистка (доплата, тг)</label><input id="express" min="0" name="express" step="1" type="number"/></div><div class="field-block"><label for="comment">26. Комментарий</label><textarea id="comment" name="comment" placeholder="Введите дополнительные пожелания или комментарии" rows="3"></textarea></div><div class="field-block"><label for="finalAmount">27. Итоговая сумма к оплате</label><input id="finalAmount" name="finalAmount" readonly="True" type="text"/></div></form>
+<div class="field-block"><label for="price">19. Стоимость чистки (тг)</label><input id="price" min="0" name="price" step="0.01" type="number"/></div><div class="field-block"><label for="advance">20. Аванс (тг)</label><input id="advance" min="0" name="advance" step="0.01" type="number"/></div><div class="field-block"><label for="discount">21. Скидка (%)</label><input id="discount" max="100" min="0" name="discount" placeholder="Введите скидку, например 10" step="1" type="number"/></div><div class="field-block"><label for="express">22. Экспресс-чистка (доплата, тг)</label><input id="express" min="0" name="express" step="1" type="number"/></div><div class="field-block"><label for="comment">23. Комментарий</label><textarea id="comment" name="comment" placeholder="Введите дополнительные пожелания или комментарии" rows="3"></textarea></div><div class="field-block"><label for="finalAmount">24. Итоговая сумма к оплате</label><input id="finalAmount" name="finalAmount" readonly="True" type="text"/></div></form>
 <!-- Особые условия -->
 <div class="field-block">
-<label for="specialConditions"><strong>Особые условия</strong></label>
+<label for="specialConditions"><strong>25. Особые условия</strong></label>
     <style>
   #specialConditions {
     font-size: 13px;
@@ -288,7 +288,6 @@ function appendPercent(el) {
   }
 </style>
 <div style="border: 1px solid #ccc; padding: 10px; font-size: 11px; background: #f9f9f9; max-height: 200px; overflow-y: auto;">
-  <strong>Особые условия</strong>
   <ol style="padding-left: 16px; margin-top: 6px;">
     <li>Вещи без маркировки, при частичной маркировке или запрещающей химическую чистку, могут быть приняты, только по требованию Заказчика. При этом, Исполнитель, не несёт материальной и моральной ответственности за качество чистки, порчи и потери товарного вида изделия, обработанного в соответствии с существующими технологиями.</li>
     <li>В ходе оказания услуг возможно проявление (ввиду недоброкачественного материала и др.) скрытых дефектов (усадка, деформация, проступление клея, изменение оттенка краски или её сход, увеличение жёсткости кожи, уменьшение блеска плёночного покрытия или его сход и др.).</li>
@@ -305,16 +304,16 @@ function appendPercent(el) {
     Я подтверждаю, что ознакомлен с особыми условиями и согласен на чистку без гарантии по собственному желанию.
   </label>
 </div>
-<label>19. Подпись заказчика ✍️</label>
+<label>26. Подпись заказчика ✍️</label>
 <canvas height="100" id="clientSign" style="border:1px solid #ccc;" width="300"></canvas>
 <button onclick="clearCanvas('clientSign')" type="button">Очистить</button>
 </div>
 <div class="field-block">
 <div class="field-block">
-<label>20. ФИО приемщика</label>
-<input id="staffName" name="staffName" placeholder="Введите ФИО исполнителя" type="text"/>
+<label for="staffName">ФИО приёмщика</label>
+<input type="text" id="staffName" name="staffName" placeholder="Введите ФИО приемщика" />
 </div>
-<label>21. Подпись приемщика ✍️</label>
+<label>27. Подпись приемщика ✍️</label>
 <canvas height="100" id="staffSign" style="border:1px solid #ccc;" width="300"></canvas>
 <button onclick="clearCanvas('staffSign')" type="button">Очистить</button>
 </div>
