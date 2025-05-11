@@ -75,9 +75,9 @@
 <label for="date">2. Дата приёма</label>
 <input id="date" name="date" required="" type="date"/>
 </div>
-<!-- ФИО клиента -->
+<!-- ФИО заказчика -->
 <div class="field-block">
-<label for="clientName">3. ФИО клиента</label>
+<label for="clientName">3. ФИО заказчика</label>
 <input id="clientName" name="clientName" placeholder="Введите ФИО" required="" type="text"/>
 </div><div class="field-block">
 <label for="phone">4. Телефон</label>
@@ -260,8 +260,8 @@ function appendPercent(el) {
 <label for="quantity">16. Общее количество единиц</label>
 <input id="quantity" min="1" name="quantity" type="number"/>
 </div>
-<!-- Подпись заказчика и исполнителя -->
-<!-- Подпись клиента о получении заказа -->
+<!-- Подпись заказчика и приемщика -->
+<!-- Подпись заказчика о получении заказа -->
 <!-- Дата выдачи -->
 <div class="field-block">
 <label for="issueDate">17. Дата выдачи</label>
@@ -286,16 +286,16 @@ function appendPercent(el) {
 <label for="conditions">Особые условия при сдаче/получении вещи</label>
 <textarea id="conditions" name="conditions" placeholder="Например: клиент требует деликатную чистку, осмотр на наличие дефектов и т.д." rows="3"></textarea>
 </div>
-<label>19. Подпись клиента ✍️</label>
+<label>19. Подпись заказчика ✍️</label>
 <canvas height="100" id="clientSign" style="border:1px solid #ccc;" width="300"></canvas>
 <button onclick="clearCanvas('clientSign')" type="button">Очистить</button>
 </div>
 <div class="field-block">
 <div class="field-block">
-<label>20. ФИО исполнителя</label>
+<label>20. ФИО приемщика</label>
 <input id="staffName" name="staffName" placeholder="Введите ФИО исполнителя" type="text"/>
 </div>
-<label>21. Подпись исполнителя ✍️</label>
+<label>21. Подпись приемщика ✍️</label>
 <canvas height="100" id="staffSign" style="border:1px solid #ccc;" width="300"></canvas>
 <button onclick="clearCanvas('staffSign')" type="button">Очистить</button>
 </div>
