@@ -489,13 +489,19 @@ function calculateTotal() {
 async function generateAndSendPDF() {
   const element = document.body;
 
-  const opt = {
-    margin:       0.5,
-    filename:     'Квитанция.pdf',
-    image:        { type: 'jpeg', quality: 0.98 },
-    html2canvas:  { scale: 2 },
-    jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
-  };
+  const receiptNumber = document.getElementById('receiptNumber').value || 'БезНомера';
+const clientName = document.getElementById('clientName').value || 'БезИмени';
+const date = document.getElementById('date').value || 'БезДаты';
+
+const filename = `Квитанция_${receiptNumber}_${clientName}_${date}.pdf`.replace(/\s+/g, '_');
+
+const opt = {
+  margin: 0.2,
+  filename: filename,
+  image: { type: 'jpeg', quality: 0.98 },
+  html2canvas: { scale: 2 },
+  jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+};
 
   // Генерируем PDF
   const pdfBlob = await html2pdf().set(opt).from(element).outputPdf('blob');
