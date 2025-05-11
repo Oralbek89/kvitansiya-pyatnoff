@@ -277,15 +277,13 @@ function appendPercent(el) {
 <option>Только доставка</option>
 </select>
 </div>
-<div class="button-group">
-  <button onclick="submitForm()" type="button">Сохранить и отправить</button>
-  <button onclick="generateAndSendPDF()" type="button">Скачать PDF и отправить</button>
-  <button type="reset">Сброс / Очистка формы</button>
-</div>
 <div class="field-block">
 <label for="conditions">Особые условия при сдаче/получении вещи</label>
 <textarea id="conditions" name="conditions" placeholder="Например: клиент требует деликатную чистку, осмотр на наличие дефектов и т.д." rows="3"></textarea>
 </div>
+<p style="margin-bottom: 8px; font-weight: bold;">
+  Я, Заказчик, ознакомлен с условиями и согласен на чистку без гарантии по собственному желанию.
+</p>
 <label>19. Подпись заказчика ✍️</label>
 <canvas height="100" id="clientSign" style="border:1px solid #ccc;" width="300"></canvas>
 <button onclick="clearCanvas('clientSign')" type="button">Очистить</button>
@@ -298,6 +296,11 @@ function appendPercent(el) {
 <label>21. Подпись приемщика ✍️</label>
 <canvas height="100" id="staffSign" style="border:1px solid #ccc;" width="300"></canvas>
 <button onclick="clearCanvas('staffSign')" type="button">Очистить</button>
+</div>
+<div class="button-group">
+  <button onclick="submitForm()" type="button">Сохранить и отправить</button>
+  <button onclick="generateAndSendPDF()" type="button">Скачать PDF и отправить</button>
+  <button type="reset">Сброс / Очистка формы</button>
 </div>
 <div class="field-block"><label for="price">22. Стоимость чистки (тг)</label><input id="price" min="0" name="price" step="0.01" type="number"/></div><div class="field-block"><label for="advance">23. Аванс (тг)</label><input id="advance" min="0" name="advance" step="0.01" type="number"/></div><div class="field-block"><label for="discount">24. Скидка (%)</label><input id="discount" max="100" min="0" name="discount" placeholder="Введите скидку, например 10" step="1" type="number"/></div><div class="field-block"><label for="express">25. Экспресс-чистка (доплата, тг)</label><input id="express" min="0" name="express" step="1" type="number"/></div><div class="field-block"><label for="comment">26. Комментарий</label><textarea id="comment" name="comment" placeholder="Введите дополнительные пожелания или комментарии" rows="3"></textarea></div><div class="field-block"><label for="finalAmount">27. Итоговая сумма к оплате</label><input id="finalAmount" name="finalAmount" readonly="True" type="text"/></div></form>
  <script>
