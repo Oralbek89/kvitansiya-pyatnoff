@@ -291,6 +291,12 @@ function appendPercent(el) {
 <p style="margin-bottom: 8px; font-weight: bold;">
   Я, Заказчик, ознакомлен с условиями и согласен на чистку без гарантии по собственному желанию.
 </p>
+<div class="field-block">
+  <label>
+    <input type="checkbox" id="agreementCheckbox" required>
+    Я подтверждаю, что ознакомлен с особыми условиями и согласен на чистку без гарантии по собственному желанию.
+  </label>
+</div>
 <label>19. Подпись заказчика ✍️</label>
 <canvas height="100" id="clientSign" style="border:1px solid #ccc;" width="300"></canvas>
 <button onclick="clearCanvas('clientSign')" type="button">Очистить</button>
