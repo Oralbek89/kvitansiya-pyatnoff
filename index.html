@@ -48,6 +48,14 @@
       margin-top: 12px;
     }
 
+    .clear-button {
+      font-size: 10px !important;
+      padding: 4px 6px !important;
+      width: auto;
+      display: inline-block;
+      margin-top: 2px;
+    }
+
     @media (min-width: 768px) {
       input, select, textarea, button {
         max-width: 600px;
@@ -55,41 +63,7 @@
     }
   </style>
 </head>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/><style>
-    body {
-       font-size: 11px;
-        padding: 10px;
-        font-family: sans-serif;
-    }
-
-    input, select, textarea, button {
-        font-size: 18px !important;
-        padding: 10px !important;
-        width: 100%;
-        box-sizing: border-box;
-        margin-bottom: 12px;
-    }
-
-    label {
-        font-weight: bold;
-        margin-top: 10px;
-        display: block;
-    }
-
-    @media (min-width: 768px) {
-        input, select, textarea, button {
-            max-width: 600px;
-        }
-    }
-
-    canvas {
-        border: 1px solid #ccc;
-        display: block;
-        margin-bottom: 12px;
-    }
-    </style></head>
 <body>
-
 <h2 style="text-align: center; margin-top: 20px;">Квитанция химчистки «Пятн.OFF»</h2>
 <form method="POST" action="https://oralbek.app.n8n.cloud/webhook-test/fdbc0125-89ca-4117-8188-7e677e1d972b"><div class="field-block"><label for="receiptNumber">1. Номер квитанции</label><input id="receiptNumber" name="receiptNumber" required="True" type="text"/></div>
 <!-- Дата приема -->
