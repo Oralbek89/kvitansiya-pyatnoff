@@ -490,28 +490,32 @@ function calculateTotal() {
 </script><footer style="text-align:center; margin-top:30px; font-size:14px; color:#888;">© Химчистка «Пятн.OFF». Все права защищены.</footer>
 <script>
 async function generateAndSendPDF() {
-  const pdfContainer = document.getElementById('pdfContent');
+  const original = document.getElementById('pdfContent');
+  const clone = original.cloneNode(true);
 
-  if (!document.getElementById('pdfClientSignature')) {
-    const clientSignCanvas = document.getElementById('clientSign');
+  // Добавление подписей в клон
+  const clientSignCanvas = document.getElementById('clientSign');
+  const staffSignCanvas = document.getElementById('staffSign');
+
+  if (clientSignCanvas && !clone.querySelector('#pdfClientSignature')) {
     const clientSignImg = document.createElement('img');
     clientSignImg.src = clientSignCanvas.toDataURL("image/png");
     clientSignImg.id = 'pdfClientSignature';
     clientSignImg.style.maxWidth = "300px";
-    pdfContainer.appendChild(document.createTextNode("Подпись клиента:"));
-    pdfContainer.appendChild(clientSignImg);
+    clone.appendChild(document.createTextNode("Подпись клиента:"));
+    clone.appendChild(clientSignImg);
   }
 
-  if (!document.getElementById('pdfStaffSignature')) {
-    const staffSignCanvas = document.getElementById('staffSign');
+  if (staffSignCanvas && !clone.querySelector('#pdfStaffSignature')) {
     const staffSignImg = document.createElement('img');
     staffSignImg.src = staffSignCanvas.toDataURL("image/png");
     staffSignImg.id = 'pdfStaffSignature';
     staffSignImg.style.maxWidth = "300px";
-    pdfContainer.appendChild(document.createTextNode("Подпись приёмщика:"));
-    pdfContainer.appendChild(staffSignImg);
+    clone.appendChild(document.createTextNode("Подпись приёмщика:"));
+    clone.appendChild(staffSignImg);
   }
 
+  // Генерация имени файла
   const receiptNumber = document.getElementById('receiptNumber').value || 'БезНомера';
   const clientName = document.getElementById('clientName').value || 'БезИмени';
   const date = document.getElementById('date').value || 'БезДаты';
@@ -525,15 +529,16 @@ async function generateAndSendPDF() {
     jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
   };
 
-  const pdfBlob = await html2pdf().set(opt).from(pdfContainer).outputPdf('blob');
+  // Генерация PDF из клона
+  const pdfBlob = await html2pdf().set(opt).from(clone).outputPdf('blob');
 
   const data = {
     receiptNumber,
     clientName,
     date,
     receptionistName: document.getElementById('receptionistName').value,
-    clientSignature: document.getElementById('clientSign').toDataURL("image/png"),
-    staffSignature: document.getElementById('staffSign').toDataURL("image/png")
+    clientSignature: clientSignCanvas.toDataURL("image/png"),
+    staffSignature: staffSignCanvas.toDataURL("image/png")
   };
 
   const payload = new FormData();
