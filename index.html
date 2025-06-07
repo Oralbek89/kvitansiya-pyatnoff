@@ -404,9 +404,9 @@ if (clientSignCanvas && staffSignCanvas) {
     })
     .then(response => {
       if (response.ok) {
-        alert("Данные успешно отправлены в n8n!");
+        alert("Данные успешно отправлены");
       } else {
-        alert("Ошибка при отправке данных.");
+        alert("Ошибка при отправке данных");
       }
     })
     .catch(error => {
@@ -489,42 +489,59 @@ function calculateTotal() {
 </script><footer style="text-align:center; margin-top:30px; font-size:14px; color:#888;">© Химчистка «Пятн.OFF». Все права защищены.</footer>
 <script>
 async function generateAndSendPDF() {
-  const element = document.body;
+  const pdfContainer = document.getElementById('pdfContent');
 
+  // Получаем подписи
+  const clientSignCanvas = document.getElementById('clientSign');
+  const staffSignCanvas = document.getElementById('staffSign');
+
+  const clientSignImg = document.createElement('img');
+  clientSignImg.src = clientSignCanvas.toDataURL("image/png");
+  clientSignImg.style.maxWidth = "300px";
+  pdfContainer.appendChild(document.createElement("br"));
+  pdfContainer.appendChild(document.createTextNode("Подпись клиента:"));
+  pdfContainer.appendChild(clientSignImg);
+
+  const staffSignImg = document.createElement('img');
+  staffSignImg.src = staffSignCanvas.toDataURL("image/png");
+  staffSignImg.style.maxWidth = "300px";
+  pdfContainer.appendChild(document.createElement("br"));
+  pdfContainer.appendChild(document.createTextNode("Подпись приёмщика:"));
+  pdfContainer.appendChild(staffSignImg);
+
+  // Имя файла
   const receiptNumber = document.getElementById('receiptNumber').value || 'БезНомера';
-const clientName = document.getElementById('clientName').value || 'БезИмени';
-const date = document.getElementById('date').value || 'БезДаты';
+  const clientName = document.getElementById('clientName').value || 'БезИмени';
+  const date = document.getElementById('date').value || 'БезДаты';
+  const filename = `Квитанция_${receiptNumber}_${clientName}_${date}.pdf`.replace(/\s+/g, '_');
 
-const filename = `Квитанция_${receiptNumber}_${clientName}_${date}.pdf`.replace(/\s+/g, '_');
+  // Опции PDF
+  const opt = {
+    margin: 0.2,
+    filename: filename,
+    image: { type: 'jpeg', quality: 0.98 },
+    html2canvas: { scale: 2 },
+    jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+  };
 
-const opt = {
-  margin: 0.2,
-  filename: filename,
-  image: { type: 'jpeg', quality: 0.98 },
-  html2canvas: { scale: 2 },
-  jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
-};
+  // Генерация PDF
+  const pdfBlob = await html2pdf().set(opt).from(pdfContainer).outputPdf('blob');
 
-  // Генерируем PDF
-  const pdfBlob = await html2pdf().set(opt).from(element).outputPdf('blob');
-
-  // Собираем данные из формы
+  // Сбор данных формы
   const form = document.querySelector("form");
   const formData = new FormData(form);
   const data = {};
   formData.forEach((value, key) => data[key] = value);
 
-  // Добавим подписи
-  const clientSignCanvas = document.getElementById('clientSign');
-  const staffSignCanvas = document.getElementById('staffSign');
+  // Добавим подписи в JSON
   if (clientSignCanvas && staffSignCanvas) {
     data["clientSignature"] = clientSignCanvas.toDataURL("image/png");
     data["staffSignature"] = staffSignCanvas.toDataURL("image/png");
   }
 
-  // Готовим payload
+  // Формируем payload
   const payload = new FormData();
-  payload.append("pdf", pdfBlob, "Квитанция.pdf");
+  payload.append("pdf", pdfBlob, filename);
   payload.append("json", JSON.stringify(data));
 
   // Отправка в n8n
@@ -535,48 +552,6 @@ const opt = {
 
   alert("PDF и данные отправлены!");
 }
-</script>
-  <script>
-  function enableSignature(canvasId) {
-    const canvas = document.getElementById(canvasId);
-    const ctx = canvas.getContext("2d");
-    let drawing = false;
-
-    // Мышь
-    canvas.addEventListener("mousedown", (e) => {
-      drawing = true;
-      ctx.beginPath();
-      ctx.moveTo(e.offsetX, e.offsetY);
-    });
-    canvas.addEventListener("mousemove", (e) => {
-      if (drawing) {
-        ctx.lineTo(e.offsetX, e.offsetY);
-        ctx.stroke();
-      }
-    });
-    canvas.addEventListener("mouseup", () => (drawing = false));
-    canvas.addEventListener("mouseleave", () => (drawing = false));
-
-    // Сенсор
-    canvas.addEventListener("touchstart", (e) => {
-      e.preventDefault();
-      const rect = canvas.getBoundingClientRect();
-      const touch = e.touches[0];
-      drawing = true;
-      ctx.beginPath();
-      ctx.moveTo(touch.clientX - rect.left, touch.clientY - rect.top);
-    });
-    canvas.addEventListener("touchmove", (e) => {
-      e.preventDefault();
-      if (drawing) {
-        const rect = canvas.getBoundingClientRect();
-        const touch = e.touches[0];
-        ctx.lineTo(touch.clientX - rect.left, touch.clientY - rect.top);
-        ctx.stroke();
-      }
-    });
-    canvas.addEventListener("touchend", () => (drawing = false));
-  }
 </script>
 </body>
 </html>
