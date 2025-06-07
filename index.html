@@ -491,31 +491,31 @@ function calculateTotal() {
 async function generateAndSendPDF() {
   const pdfContainer = document.getElementById('pdfContent');
 
-  // Получаем подписи
-  const clientSignCanvas = document.getElementById('clientSign');
-  const staffSignCanvas = document.getElementById('staffSign');
+  if (!document.getElementById('pdfClientSignature')) {
+    const clientSignCanvas = document.getElementById('clientSign');
+    const clientSignImg = document.createElement('img');
+    clientSignImg.src = clientSignCanvas.toDataURL("image/png");
+    clientSignImg.id = 'pdfClientSignature';
+    clientSignImg.style.maxWidth = "300px";
+    pdfContainer.appendChild(document.createTextNode("Подпись клиента:"));
+    pdfContainer.appendChild(clientSignImg);
+  }
 
-  const clientSignImg = document.createElement('img');
-  clientSignImg.src = clientSignCanvas.toDataURL("image/png");
-  clientSignImg.style.maxWidth = "300px";
-  pdfContainer.appendChild(document.createElement("br"));
-  pdfContainer.appendChild(document.createTextNode("Подпись клиента:"));
-  pdfContainer.appendChild(clientSignImg);
+  if (!document.getElementById('pdfStaffSignature')) {
+    const staffSignCanvas = document.getElementById('staffSign');
+    const staffSignImg = document.createElement('img');
+    staffSignImg.src = staffSignCanvas.toDataURL("image/png");
+    staffSignImg.id = 'pdfStaffSignature';
+    staffSignImg.style.maxWidth = "300px";
+    pdfContainer.appendChild(document.createTextNode("Подпись приёмщика:"));
+    pdfContainer.appendChild(staffSignImg);
+  }
 
-  const staffSignImg = document.createElement('img');
-  staffSignImg.src = staffSignCanvas.toDataURL("image/png");
-  staffSignImg.style.maxWidth = "300px";
-  pdfContainer.appendChild(document.createElement("br"));
-  pdfContainer.appendChild(document.createTextNode("Подпись приёмщика:"));
-  pdfContainer.appendChild(staffSignImg);
-
-  // Имя файла
   const receiptNumber = document.getElementById('receiptNumber').value || 'БезНомера';
   const clientName = document.getElementById('clientName').value || 'БезИмени';
   const date = document.getElementById('date').value || 'БезДаты';
   const filename = `Квитанция_${receiptNumber}_${clientName}_${date}.pdf`.replace(/\s+/g, '_');
 
-  // Опции PDF
   const opt = {
     margin: 0.2,
     filename: filename,
@@ -524,27 +524,21 @@ async function generateAndSendPDF() {
     jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
   };
 
-  // Генерация PDF
   const pdfBlob = await html2pdf().set(opt).from(pdfContainer).outputPdf('blob');
 
-  // Сбор данных формы
-  const form = document.querySelector("form");
-  const formData = new FormData(form);
-  const data = {};
-  formData.forEach((value, key) => data[key] = value);
+  const data = {
+    receiptNumber,
+    clientName,
+    date,
+    receptionistName: document.getElementById('receptionistName').value,
+    clientSignature: document.getElementById('clientSign').toDataURL("image/png"),
+    staffSignature: document.getElementById('staffSign').toDataURL("image/png")
+  };
 
-  // Добавим подписи в JSON
-  if (clientSignCanvas && staffSignCanvas) {
-    data["clientSignature"] = clientSignCanvas.toDataURL("image/png");
-    data["staffSignature"] = staffSignCanvas.toDataURL("image/png");
-  }
-
-  // Формируем payload
   const payload = new FormData();
   payload.append("pdf", pdfBlob, filename);
   payload.append("json", JSON.stringify(data));
 
-  // Отправка в n8n
   await fetch("https://oralbek.app.n8n.cloud/webhook-test/b78bf96c-b66c-4b30-899a-dd7938aa6780", {
     method: "POST",
     body: payload
